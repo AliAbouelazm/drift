@@ -35,7 +35,7 @@ Browser (React 18 + Vite)
 | Explainability | SHAP | Token-level attribution scores |
 | Charts | Recharts | Time series, donut, comparison line chart |
 | Reddit data | Public JSON endpoint | Live subreddit posts, no credentials required |
-| Deployment | Render (backend), Vercel (frontend) | Production hosting |
+| Deployment | HuggingFace Spaces (backend), Vercel (frontend) | Production hosting |
 
 ## Model
 
@@ -109,23 +109,21 @@ VITE_API_URL=http://localhost:8000
 
 ## Deployment
 
-### Backend on Render
+### Backend on HuggingFace Spaces
 
-1. Push the repo to GitHub.
-2. Create a new Web Service on Render and connect the repo.
-3. Set the root directory to `drift/backend`.
-4. Build command: `pip install -r requirements.txt`
-5. Start command: `uvicorn app.main:app --host 0.0.0.0 --port $PORT`
-6. Add `MODEL_PATH` and `ENV` in the Render environment variables panel.
-7. Upload your trained `saved_model/` directory or retrain on the Render instance.
+The backend runs as a Docker Space. The model is loaded from the HuggingFace Hub (`AliAbouelazm/drift-sentiment`) at startup — no weights are committed to the repo.
+
+1. Push `backend/hf_deploy/` to a HuggingFace Space with Docker SDK.
+2. Set `MODEL_PATH` to your Hub model ID in the Space settings.
+3. The Space exposes port 7860; HuggingFace proxies it automatically.
 
 ### Frontend on Vercel
 
 1. Import the repo on Vercel.
 2. Set the root directory to `drift/frontend`.
-3. Add environment variable `VITE_API_URL` pointing to your Render service URL.
+3. Add environment variable `VITE_API_URL` pointing to your HuggingFace Space URL.
 4. Deploy. Vercel detects Vite automatically.
 
 ## Live demo
 
-(Add link after deployment)
+[https://drift-git-main-aliabouelazms-projects.vercel.app](https://drift-git-main-aliabouelazms-projects.vercel.app)
