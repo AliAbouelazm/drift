@@ -1,0 +1,43 @@
+*, *::before, *::after {
+  box-sizing: border-box;
+}
+
+:root {
+  --bg: #ffffff;
+  --surface: #f9f9f9;
+  --border: #e5e5e5;
+  --text-primary: #111111;
+  --text-secondary: #6b6b6b;
+  --accent: #2563eb;
+  --positive: #16a34a;
+  --negative: #dc2626;
+  --neutral-sentiment: #6b6b6b;
+  --anomaly-mild: #f59e0b;
+  --anomaly-moderate: #ea580c;
+  --anomaly-severe: #dc2626;
+}
+
+body {
+  background: var(--bg);
+  color: var(--text-primary);
+  font-family: 'Inter', sans-serif;
+  font-size: 14px;
+  line-height: 1.5;
+  margin: 0;
+  padding: 0;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  cursor: pointer;
+  font-family: inherit;
+}
+
+input,
+textarea {
+  font-family: inherit;
+}

@@ -1,0 +1,142 @@
+.sidebar {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 220px;
+  height: 100vh;
+  background: var(--surface);
+  border-right: 1px solid var(--border);
+  display: flex;
+  flex-direction: column;
+  padding-top: 24px;
+}
+
+.sidebarWordmark {
+  font-size: 18px;
+  font-weight: 600;
+  padding: 0 16px 24px;
+  color: var(--text-primary);
+}
+
+.navLink {
+  display: block;
+  padding: 8px 16px;
+  font-size: 14px;
+  color: var(--text-secondary);
+  border-left: 2px solid transparent;
+}
+
+.navLink:hover {
+  color: var(--text-primary);
+}
+
+.navLinkActive {
+  color: var(--text-primary);
+  border-left-color: var(--accent);
+}
+
+.statCard {
+  background: var(--surface);
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 16px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.statValue {
+  font-size: 28px;
+  font-weight: 600;
+  color: var(--text-primary);
+  margin: 0 0 4px;
+}
+
+.statLabel {
+  font-size: 12px;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  margin: 0;
+}
+
+.anomalyCard {
+  background: #ffffff;
+  border: 1px solid var(--border);
+  border-radius: 6px;
+  padding: 12px 16px;
+  margin-bottom: 8px;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.08);
+}
+
+.anomalyCard[data-severity='mild'] {
+  border-left: 3px solid var(--anomaly-mild);
+}
+
+.anomalyCard[data-severity='moderate'] {
+  border-left: 3px solid var(--anomaly-moderate);
+}
+
+.anomalyCard[data-severity='severe'] {
+  border-left: 3px solid var(--anomaly-severe);
+}
+
+.anomalyTime {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin-bottom: 4px;
+}
+
+.anomalySeverity {
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+}
+
+.anomalyPost {
+  font-size: 13px;
+  color: var(--text-secondary);
+  margin-top: 6px;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+.keyword {
+  display: inline-block;
+  font-size: 12px;
+  padding: 4px 10px;
+  border-radius: 4px;
+  background: var(--surface);
+  border: 1px solid var(--border);
+  margin: 2px;
+}
+
+.confidenceBar {
+  height: 6px;
+  border-radius: 3px;
+}
+
+.sentimentPill {
+  display: inline-block;
+  padding: 4px 12px;
+  border-radius: 4px;
+  font-size: 13px;
+  font-weight: 500;
+  text-transform: capitalize;
+}
+
+.sentimentPill[data-label='positive'] {
+  background: #dcfce7;
+  color: var(--positive);
+}
+
+.sentimentPill[data-label='negative'] {
+  background: #fee2e2;
+  color: var(--negative);
+}
+
+.sentimentPill[data-label='neutral'] {
+  background: var(--surface);
+  color: var(--text-secondary);
+  border: 1px solid var(--border);
+}
