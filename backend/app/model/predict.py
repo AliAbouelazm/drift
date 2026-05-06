@@ -18,11 +18,14 @@ def _load_model():
     if _model is not None:
         return
 
-    config_path = os.path.join(MODEL_DIR, "config.json")
-    if not os.path.exists(config_path):
-        raise RuntimeError(
-            f"No trained model found at {MODEL_DIR}. Run: python -m app.model.train"
-        )
+    # only do a filesystem check for local paths, not HuggingFace Hub IDs
+    is_local = os.path.sep in MODEL_DIR or MODEL_DIR.startswith(".")
+    if is_local:
+        config_path = os.path.join(MODEL_DIR, "config.json")
+        if not os.path.exists(config_path):
+            raise RuntimeError(
+                f"No trained model found at {MODEL_DIR}. Run: python3 -m app.model.train"
+            )
 
     if torch.backends.mps.is_available():
         _device = "mps"
