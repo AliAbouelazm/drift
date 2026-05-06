@@ -18,9 +18,8 @@ def _load_model():
     if _model is not None:
         return
 
-    # only do a filesystem check for local paths, not HuggingFace Hub IDs
-    is_local = os.path.sep in MODEL_DIR or MODEL_DIR.startswith(".")
-    if is_local:
+    # only check filesystem for local paths; HF Hub IDs are handled by from_pretrained
+    if os.path.exists(MODEL_DIR):
         config_path = os.path.join(MODEL_DIR, "config.json")
         if not os.path.exists(config_path):
             raise RuntimeError(
