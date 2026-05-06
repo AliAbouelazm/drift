@@ -50,7 +50,29 @@ export default function Dashboard() {
 
       {!data && !loading && !error && (
         <div className={styles.emptyState}>
-          Enter a subreddit name above to analyze its sentiment.
+          <p className={styles.emptyStateText}>Enter a subreddit name above to analyze its sentiment.</p>
+          <div className={styles.demoButtons}>
+            {['programming', 'worldnews', 'gaming', 'personalfinance', 'fitness'].map((name) => (
+              <button
+                key={name}
+                className={styles.demoButton}
+                onClick={() => {
+                  setQuery(name);
+                  setLoading(true);
+                  setError(null);
+                  setData(null);
+                  import('../api/client').then(({ fetchSubreddit }) =>
+                    fetchSubreddit(name)
+                      .then(setData)
+                      .catch((err) => setError(err.message))
+                      .finally(() => setLoading(false))
+                  );
+                }}
+              >
+                r/{name}
+              </button>
+            ))}
+          </div>
         </div>
       )}
 
