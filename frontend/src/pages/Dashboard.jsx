@@ -6,27 +6,30 @@ import TrendLine from '../components/TrendLine';
 import styles from '../styles/dashboard.module.css';
 import componentStyles from '../styles/components.module.css';
 
+const DEMO_SUBREDDITS = ['programming', 'worldnews', 'gaming', 'personalfinance', 'fitness'];
+
 export default function Dashboard() {
   const [query, setQuery] = useState('');
   const [data, setData] = useState(null);
   const [loading, setLoading] = useState(false);
   const [error, setError] = useState(null);
 
-  async function handleSearch(e) {
-    e.preventDefault();
-    const name = query.trim().replace(/^r\//, '');
-    if (!name) return;
+  function load(name) {
+    setQuery(name);
     setLoading(true);
     setError(null);
     setData(null);
-    try {
-      const result = await fetchSubreddit(name);
-      setData(result);
-    } catch (err) {
-      setError(err.message);
-    } finally {
-      setLoading(false);
-    }
+    fetchSubreddit(name)
+      .then(setData)
+      .catch((err) => setError(err.message))
+      .finally(() => setLoading(false));
+  }
+
+  function handleSearch(e) {
+    e.preventDefault();
+    const name = query.trim().replace(/^r\//, '');
+    if (!name) return;
+    load(name);
   }
 
   return (
@@ -46,29 +49,26 @@ export default function Dashboard() {
         </button>
       </form>
 
-      {error && <div className={styles.error}>{error}</div>}
+      {error && (
+        <div className={styles.errorBlock}>
+          <p className={styles.errorText}>{error}</p>
+          <p className={styles.errorHint}>Try one of the preloaded subreddits:</p>
+          <div className={styles.demoButtons}>
+            {DEMO_SUBREDDITS.map((name) => (
+              <button key={name} className={styles.demoButton} onClick={() => load(name)}>
+                r/{name}
+              </button>
+            ))}
+          </div>
+        </div>
+      )}
 
       {!data && !loading && !error && (
         <div className={styles.emptyState}>
-          <p className={styles.emptyStateText}>Enter a subreddit name above to analyze its sentiment.</p>
+          <p className={styles.emptyStateText}>Enter a subreddit above or pick one below to get started.</p>
           <div className={styles.demoButtons}>
-            {['programming', 'worldnews', 'gaming', 'personalfinance', 'fitness'].map((name) => (
-              <button
-                key={name}
-                className={styles.demoButton}
-                onClick={() => {
-                  setQuery(name);
-                  setLoading(true);
-                  setError(null);
-                  setData(null);
-                  import('../api/client').then(({ fetchSubreddit }) =>
-                    fetchSubreddit(name)
-                      .then(setData)
-                      .catch((err) => setError(err.message))
-                      .finally(() => setLoading(false))
-                  );
-                }}
-              >
+            {DEMO_SUBREDDITS.map((name) => (
+              <button key={name} className={styles.demoButton} onClick={() => load(name)}>
                 r/{name}
               </button>
             ))}
@@ -80,7 +80,7 @@ export default function Dashboard() {
         <>
           {data.demo && (
             <div className={styles.demoBanner}>
-              Demo mode — Reddit is not accessible from this server. Showing sample data with real model inference.
+              Demo data — Reddit is not accessible from this server. Showing pre-fetched posts with real model inference.
             </div>
           )}
           <div className={styles.statsRow}>
@@ -89,27 +89,19 @@ export default function Dashboard() {
               <p className={componentStyles.statLabel}>Total Posts</p>
             </div>
             <div className={componentStyles.statCard}>
-              <p
-                className={componentStyles.statValue}
-                style={{ color: '#16a34a' }}
-              >
+              <p className={componentStyles.statValue} style={{ color: '#16a34a' }}>
                 {data.summary.positive_pct}%
               </p>
               <p className={componentStyles.statLabel}>Positive</p>
             </div>
             <div className={componentStyles.statCard}>
-              <p
-                className={componentStyles.statValue}
-                style={{ color: '#dc2626' }}
-              >
+              <p className={componentStyles.statValue} style={{ color: '#dc2626' }}>
                 {data.summary.negative_pct}%
               </p>
               <p className={componentStyles.statLabel}>Negative</p>
             </div>
             <div className={componentStyles.statCard}>
-              <p className={componentStyles.statValue}>
-                {data.summary.anomaly_count}
-              </p>
+              <p className={componentStyles.statValue}>{data.summary.anomaly_count}</p>
               <p className={componentStyles.statLabel}>Anomalies Detected</p>
             </div>
           </div>
@@ -143,25 +135,17 @@ export default function Dashboard() {
                     className={styles.keywordLabel}
                     style={{
                       color:
-                        sentiment === 'positive'
-                          ? '#16a34a'
-                          : sentiment === 'negative'
-                          ? '#dc2626'
-                          : '#6b6b6b',
+                        sentiment === 'positive' ? '#16a34a' : sentiment === 'negative' ? '#dc2626' : '#6b6b6b',
                     }}
                   >
                     {sentiment}
                   </div>
                   <div>
                     {(data.keywords[sentiment] || []).map((kw, i) => (
-                      <span key={i} className={componentStyles.keyword}>
-                        {kw}
-                      </span>
+                      <span key={i} className={componentStyles.keyword}>{kw}</span>
                     ))}
                     {(data.keywords[sentiment] || []).length === 0 && (
-                      <span style={{ fontSize: 12, color: '#6b6b6b' }}>
-                        Not enough posts
-                      </span>
+                      <span style={{ fontSize: 12, color: '#6b6b6b' }}>Not enough posts</span>
                     )}
                   </div>
                 </div>

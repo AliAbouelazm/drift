@@ -46,14 +46,24 @@
   opacity: 0.6;
 }
 
-.error {
-  color: var(--negative);
+.errorBlock {
+  margin-bottom: 20px;
+  padding: 14px 16px;
+  background: #fff8f0;
+  border: 1px solid #fed7aa;
+  border-radius: 6px;
+}
+
+.errorText {
+  color: #9a3412;
   font-size: 13px;
-  margin-bottom: 16px;
-  padding: 10px 12px;
-  background: #fee2e2;
-  border-radius: 4px;
-  border: 1px solid #fca5a5;
+  margin: 0 0 10px;
+}
+
+.errorHint {
+  font-size: 12px;
+  color: var(--text-secondary);
+  margin: 0 0 10px;
 }
 
 .statsRow {
