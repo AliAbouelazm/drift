@@ -1,0 +1,12 @@
+services:
+  - type: web
+    name: drift-backend
+    runtime: python
+    region: oregon
+    buildCommand: pip install -r requirements.txt
+    startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
+    envVars:
+      - key: MODEL_PATH
+        value: app/model/saved_model
+      - key: ENV
+        value: production
