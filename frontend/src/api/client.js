@@ -18,9 +18,7 @@ async function request(method, path, body) {
 
 async function fetchRedditPosts(name) {
   const url = `https://www.reddit.com/r/${name}/hot.json?limit=100`;
-  const resp = await fetch(url, {
-    headers: { 'User-Agent': 'drift-analytics/1.0' },
-  });
+  const resp = await fetch(url);
   if (resp.status === 404) throw new Error(`Subreddit r/${name} not found`);
   if (resp.status === 403) throw new Error(`Subreddit r/${name} is private or quarantined`);
   if (!resp.ok) throw new Error(`Reddit returned ${resp.status}`);
