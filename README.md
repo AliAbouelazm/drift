@@ -126,4 +126,4 @@ The backend runs as a Docker Space. The model is loaded from the HuggingFace Hub
 
 ## Live demo
 
-[https://drift-git-main-aliabouelazms-projects.vercel.app](https://drift-git-main-aliabouelazms-projects.vercel.app)
+[http://drift.aliabouelazm.com](http://drift.aliabouelazm.com)
