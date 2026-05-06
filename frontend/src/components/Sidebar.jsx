@@ -18,6 +18,9 @@ export default function Sidebar() {
         <NavLink to="/trends" className={linkClass}>
           Trends
         </NavLink>
+        <NavLink to="/model" className={linkClass}>
+          Model
+        </NavLink>
       </nav>
     </aside>
   );

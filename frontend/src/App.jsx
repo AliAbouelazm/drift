@@ -2,6 +2,7 @@ import { BrowserRouter, Navigate, Route, Routes } from 'react-router-dom';
 import Sidebar from './components/Sidebar';
 import Analyze from './pages/Analyze';
 import Dashboard from './pages/Dashboard';
+import ModelPerformance from './pages/ModelPerformance';
 import Trends from './pages/Trends';
 import './styles/global.css';
 
@@ -24,6 +25,7 @@ export default function App() {
             <Route path="/dashboard" element={<Dashboard />} />
             <Route path="/analyze" element={<Analyze />} />
             <Route path="/trends" element={<Trends />} />
+            <Route path="/model" element={<ModelPerformance />} />
           </Routes>
         </main>
       </div>
