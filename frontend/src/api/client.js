@@ -45,6 +45,10 @@ export const analyzeBatch = (texts) => request('POST', '/analyze/batch', { texts
 export const fetchModelMetrics = () => request('GET', '/model/metrics');
 
 export async function fetchSubreddit(name) {
-  const posts = await fetchRedditPosts(name);
-  return request('POST', '/analyze/subreddit', { subreddit: name, posts });
+  try {
+    const posts = await fetchRedditPosts(name);
+    return request('POST', '/analyze/subreddit', { subreddit: name, posts });
+  } catch {
+    return request('GET', `/subreddit/${encodeURIComponent(name)}`);
+  }
 }

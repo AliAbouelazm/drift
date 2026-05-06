@@ -115,3 +115,13 @@
   border: 1px dashed var(--border);
   border-radius: 6px;
 }
+
+.demoBanner {
+  font-size: 13px;
+  color: #92400e;
+  background: #fef3c7;
+  border: 1px solid #fbbf24;
+  border-radius: 4px;
+  padding: 10px 14px;
+  margin-bottom: 20px;
+}

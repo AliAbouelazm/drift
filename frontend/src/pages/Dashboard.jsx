@@ -56,6 +56,11 @@ export default function Dashboard() {
 
       {data && (
         <>
+          {data.demo && (
+            <div className={styles.demoBanner}>
+              Demo mode — Reddit is not accessible from this server. Showing sample data with real model inference.
+            </div>
+          )}
           <div className={styles.statsRow}>
             <div className={componentStyles.statCard}>
               <p className={componentStyles.statValue}>{data.summary.total_posts}</p>
